@@ -1,0 +1,37 @@
+Plans for restructuring memojs into React
+
+Make a component out of Card.
+    The return/render function of this will be based on
+    the .card class HTML div element used in memojs.
+    Q: function or class?
+
+Make components out of the child elements in Card
+    Each component can either incorporate its own event handling
+    functions, or they can be gathered in Card
+
+    Q: functions, not classes?
+
+    Q: make a component containing all aspects common to cardButtons,
+        akin to the .cardButton CSS class from memojs?
+        We could pass icons and handlers as props to this,
+        and use it for all 3 (and future) buttons on Card.
+
+
+
+original App.js return JSX:
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
