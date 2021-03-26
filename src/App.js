@@ -1,51 +1,80 @@
 import './App.css';
-import List from "./List";
-import {useState} from "react";
+import List from "./components/List";
+import {useEffect, useState} from "react";
 import {v4 as uuidv4} from 'uuid';
+import axios from 'axios';
 
 function App() {
     const placeholderCards = [
         {
-            id: "b27fec87-546f-4f79-94fb-44cce03674b9",
+            UUID: "b27fec87-546f-4f79-94fb-44cce03674b9",
             text: "Finish To Do list app.",
             doneStatus: false,
         },
         {
-            id: "d4811e33-3569-4fbf-a6da-4284c2f7d3be",
+            UUID: "d4811e33-3569-4fbf-a6da-4284c2f7d3be",
             text: "Don't let the existential dread set in.",
             doneStatus: false,
 
         },
         {
-            id: "2775e128-66ff-4f55-916b-51e322d32c8b",
+            UUID: "2775e128-66ff-4f55-916b-51e322d32c8b",
             text: "Do cardio.",
             doneStatus: false,
 
         },
         {
-            id: "11dd89bb-7f2a-4869-8c6c-b28a2d08054a",
+            UUID: "11dd89bb-7f2a-4869-8c6c-b28a2d08054a",
             text: "Make macaroni.",
             doneStatus: false,
 
         },
         {
-            id: "02eae93e-b0da-4f40-82b1-6240989333e8",
+            UUID: "02eae93e-b0da-4f40-82b1-6240989333e8",
             text: "Shop for a new tie.",
             doneStatus: false,
         },
     ]; // hard code card states here.
 
+    const blankCard = [{
+        text: "",
+        doneStatus: false
+    }]
+
+
+
     //todo: this should take data from DB/backend
-    const [items, setItems] = useState(placeholderCards)
-    const [existsChecked, setExistsChecked] = useState(items
-        .some((item) => (item.doneStatus === true))
+    const [items, setItems] = useState([]);
+    //todo add a isLoaded boolean to indicate if data has been fetched
+    //  use this in the return, to render a 'loading' indicator
+    //  that gets replaced by <List> when data has been loaded.
+
+    useEffect(async () => {
+            const cards = await axios
+                .get('http://localhost:4000/cards/')
+                .then(res => setItems(res.data));
+            console.log(cards);
+        }, []
     );
+
+    // const [existsChecked, setExistsChecked] = useState(items
+    //     .some((item) => (item.doneStatus === true))
+    // );
+
+
+    // Fetches cards from server
+    async function fetchCards() {
+        const cards = await axios
+            .get('http://localhost:4000/cards/')
+            .then(res => console.log(res.data));
+        setItems(cards);
+    }
 
     // Toggles the doneStatus of the item with specified ID.
     function toggleDone(id) {
         const updList = items.map((item) => {
-            if (item.id === id) {
-                const invDone =!item.doneStatus;
+            if (item._id === id) {
+                const invDone = !item.doneStatus;
                 //todo: make this update existsChecked
                 return {
                     ...item,
@@ -58,24 +87,31 @@ function App() {
         setItems(updList);
     }
 
+
     function addNewCard() {
+        //todo: send card to db, and then update local list from that?
+        //  We want the card to have a proper _id field, which mongodb handles when
+        //  document is inserted.
         const newItem = [
             {
-                id: uuidv4(),
-                text: "",
+                text: "test",
                 doneStatus: false,
                 //todo: add priority level, and split text into title+content?
             }
         ];
-        const updItems = items.concat(newItem);
-        setItems(updItems);
+        // send new card to backend
+        axios
+            .post('http://localhost:4000/cards/create-card', newItem)
+            .then(res => console.log(res.data));
+        // const updItems = items.concat(newItem);
+        // setItems(updItems);
 
     }
 
     function updateCardText(e, id) {
         const newText = e.target.innerText;
         const updList = items.map((item) => {
-            if (item.id === id) {
+            if (item.UUID === id) {
                 return {
                     ...item,
                     text: newText,
@@ -89,7 +125,7 @@ function App() {
     }
 
     function deleteCard(id) {
-        const updList = items.filter((item) => item.id !== id)
+        const updList = items.filter((item) => item._id !== id)
 
         setItems(updList);
     }
@@ -104,13 +140,13 @@ function App() {
         setItems(placeholderCards)
     }
 
-    function doesExistChecked(){
+    function doesExistChecked() {
         const exists = items
             .some((item) => (item.doneStatus === true))
-        setExistsChecked(exists);
+        //  setExistsChecked(exists);
     }
 
-    function setCardDoneAndUpdateState(id){
+    function setCardDoneAndUpdateState(id) {
         toggleDone(id);
         doesExistChecked()
     }
@@ -131,8 +167,8 @@ function App() {
                         title="Remove all check marked items."
                     >
                         <i className="zmdi-hc-stack zmdi-hc-2x">
-                            <i id="bigTrash"className="zmdi zmdi-delete zmdi-hc-stack-2x"></i>
-                            <i id="bigCheck"className="zmdi zmdi-check zmdi-hc-stack-1x"></i>
+                            <i id="bigTrash" className="zmdi zmdi-delete zmdi-hc-stack-2x"></i>
+                            <i id="bigCheck" className="zmdi zmdi-check zmdi-hc-stack-1x"></i>
                         </i>
                     </button>
                     <button
@@ -146,7 +182,7 @@ function App() {
                     <button
                         className="entryButton"
                         id="resetButton"
-                        onClick={resetList}
+                        //onClick={}
                     >
                         <i className="zmdi zmdi-undo zmdi-hc-3x"></i>
                     </button>

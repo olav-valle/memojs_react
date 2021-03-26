@@ -1,4 +1,4 @@
-import Card from "./components/Card";
+import Card from "./Card";
 
 function List({id, cards, toggleDone, updateCardText, deleteCard}) {
     //todo: implement delete, priority and check button handlers
@@ -8,8 +8,8 @@ function List({id, cards, toggleDone, updateCardText, deleteCard}) {
         {
             cards.map((item) => (
                 <Card
-                    key={item.id}
-                    id={item.id}
+                    key={item._id}
+                    id={item._id}
                     text={item.text}
                     done={item.doneStatus}
                     toggleDone={(id) => toggleDone(id)}
