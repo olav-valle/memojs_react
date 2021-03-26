@@ -4,42 +4,43 @@ import {useEffect, useState} from "react";
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
 
+const placeholderCards = [
+    {
+        UUID: "b27fec87-546f-4f79-94fb-44cce03674b9",
+        text: "Finish To Do list app.",
+        doneStatus: false,
+    },
+    {
+        UUID: "d4811e33-3569-4fbf-a6da-4284c2f7d3be",
+        text: "Don't let the existential dread set in.",
+        doneStatus: false,
+
+    },
+    {
+        UUID: "2775e128-66ff-4f55-916b-51e322d32c8b",
+        text: "Do cardio.",
+        doneStatus: false,
+
+    },
+    {
+        UUID: "11dd89bb-7f2a-4869-8c6c-b28a2d08054a",
+        text: "Make macaroni.",
+        doneStatus: false,
+
+    },
+    {
+        UUID: "02eae93e-b0da-4f40-82b1-6240989333e8",
+        text: "Shop for a new tie.",
+        doneStatus: false,
+    },
+]; // hard code card states here.
+
+const blankCard = [{
+    text: "",
+    doneStatus: false
+}]
 function App() {
-    const placeholderCards = [
-        {
-            UUID: "b27fec87-546f-4f79-94fb-44cce03674b9",
-            text: "Finish To Do list app.",
-            doneStatus: false,
-        },
-        {
-            UUID: "d4811e33-3569-4fbf-a6da-4284c2f7d3be",
-            text: "Don't let the existential dread set in.",
-            doneStatus: false,
 
-        },
-        {
-            UUID: "2775e128-66ff-4f55-916b-51e322d32c8b",
-            text: "Do cardio.",
-            doneStatus: false,
-
-        },
-        {
-            UUID: "11dd89bb-7f2a-4869-8c6c-b28a2d08054a",
-            text: "Make macaroni.",
-            doneStatus: false,
-
-        },
-        {
-            UUID: "02eae93e-b0da-4f40-82b1-6240989333e8",
-            text: "Shop for a new tie.",
-            doneStatus: false,
-        },
-    ]; // hard code card states here.
-
-    const blankCard = [{
-        text: "",
-        doneStatus: false
-    }]
 
 
 
@@ -135,10 +136,6 @@ function App() {
         setItems(updList);
     }
 
-
-    function resetList() {
-        setItems(placeholderCards)
-    }
 
     function doesExistChecked() {
         const exists = items

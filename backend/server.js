@@ -6,7 +6,7 @@ let bodyParser = require('body-parser');
 let dbConfig = require('./database/db');
 
 const cardRoute = require('./routes/card.route');
-const {createError} = require("@typescript-eslint/typescript-estree/dist/node-utils");
+//const {createError} = require("@typescript-eslint/typescript-estree/dist/node-utils");
 
 
 mongoose.Promise = global.Promise;
