@@ -1,0 +1,251 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap);
+
+/* Ensure consistent border-box based element sizing */
+body > * {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  width: 100%;
+  max-width: 68rem;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+  color: #4d4d4d;
+}
+
+/* Outer wrapper div */
+.App {
+  display: flex;
+  flex-flow: row wrap;
+  /*max-width: 1200px;*/
+  margin: 2rem 0 4rem 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2.5rem 5rem 0 rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.App > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+/* Header containing title and memo administration elements*/
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Flex for header button elements*/
+#itemEntry {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: "Roboto", sans-serif;
+  font-size: x-large;
+}
+
+/*Buttons for creating and administrating memo items*/
+.entryButton {
+  border: 0;
+  border-radius: 5px;
+  height: content-box;
+  /*padding:1ex;*/
+  font-family: "Roboto",
+    "Material-Design-Iconic-Font",
+    sans-serif;
+  color: #4d4d4d;
+}
+
+#bigTrash {
+}
+#bigCheck {
+  color: whitesmoke;
+}
+/* "New" button */
+#newMemo {
+  background: #6dc96d;
+  flex-grow: 10;
+}
+
+/* "Remove Done" button */
+#deleteDone {
+  background-color: tomato;
+  top: 0;
+  bottom: 0;
+  /*flex-basis: 10%;*/
+  flex-grow: 1;
+}
+#resetButton {
+  /*flex-basis: 10%;*/
+  background-color: orange;
+  flex-grow: 1;
+
+}
+
+/* --- Flex box of memo card elements ---*/
+#list {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+/* A memo card flex item */
+.card {
+  width: 100%;
+  height: 98%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 2px;
+  margin: 10px 0 0 0;
+  border-radius: 5px;
+  box-shadow: 5px 3px 5px -1px rgba(0, 0, 0, 0.34);
+  /* transition for element mouse hover*/
+  transition: all 0.1s cubic-bezier(.18, .89, .32, 1.28);
+  font-size: xx-large;
+  /*color: black;*/
+}
+
+/* User input text on item card */
+.itemText {
+  /*be greedy*/
+  flex-grow: 1;
+}
+
+/* --- Memo card button elements --- */
+.cardButton {
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+}
+
+/* Checkbox marking card item as "done" */
+.checkBtn {
+  margin-right: 1em;
+}
+
+/* Button and dropdown for priority marking */
+.priStarBtn {
+}
+
+/* Delete button on item card*/
+.deleteBtn {
+  color: #5d6164;
+}
+
+/* Styling for items checked off as done*/
+.done {
+}
+
+.done > .itemText {
+  filter: blur(1px);
+  text-decoration: line-through;
+  color: #aaaaaaaa;
+}
+
+/* --- Memo item priority select dropdown menu --- */
+#priDropdown {
+  position: fixed;
+  width: min-content;
+}
+
+#priDropdown > * {
+  /*just to make sure the dropdown is always on top*/
+  z-index: 10;
+}
+
+/* The actual dropdown menu element*/
+.dropMenu {
+  box-shadow: 5px 3px 5px 2px rgba(0, 0, 0, 0.34);
+  border-radius: 5px;
+  background-color: #393c3e;
+  color: #d8d4cf;
+}
+
+/* Priority select buttons inside dropdown menu*/
+.priMenuBtn {
+  border: 0;
+  display: block;
+  width: 100%;
+  font-size: inherit;
+  padding: 0 0.5em;
+}
+
+.priTop {
+  background-color: #ff6347;
+}
+
+.priMid {
+  background-color: #6dc96d;
+}
+
+.priLow {
+  background-color: cornflowerblue;
+}
+
+.priNone {
+  background-color: inherit;
+  color: inherit;
+}
+
+/*--- Dark Mode ---*/
+#darkModeBtn {
+  border: 0;
+  background-color: transparent;
+  align-self: flex-end;
+  /*position: absolute;*/
+
+}
+.darkModeBtn-on {
+  filter: invert(100%);
+  /*color: orange;*/
+}
+.darkMode {
+  background-color: #1d1e20;
+  color: #d8d4cf;
+}
+.darkMode > * {
+  background-color: #242527;
+
+}
+
+/* --- Hover styling only enabled on devices that support it --- */
+/* todo: these can be changed to JS instead*/
+@media all and (hover) {
+  .entryButton:hover {
+    color: whitesmoke;
+  }
+
+  .entryButton:hover #bigCheck {
+    color: #4d4d4d;
+  }
+
+  .card:hover {
+    width: 101%;
+    box-shadow: 5px 3px 5px 2px rgba(0, 0, 0, 0.34);
+  }
+
+
+  .checkBtn:Hover {
+    color: orange;
+  }
+
+  .deleteBtn:hover {
+    color: #f24236;
+  }
+
+  .priMenuBtn:hover {
+    filter: brightness(90%);
+  }
+
+}
+
+/* --- Palace holder for mobile media rules --- */
+@media all and (min-width: 600px) {
+}
+
+@media all and (min-width: 1200px) {
+}
